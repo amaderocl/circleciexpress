@@ -15,7 +15,8 @@ pipeline {
             steps {
                     echo 'Building.. Docker image'
 		            sh 'docker -v'
-				    sh "docker build -t circleciexpress${BUILD_NUMBER} ./"
+					sh 'docker rmi -f circleciexpress'
+				    sh "docker build -t circleciexpress ./"
 					sh 'docker images'
             }
         }
@@ -23,7 +24,7 @@ pipeline {
             steps {
 			    
                 echo 'Running'
-				sh "docker run -d -p 8090:8080 circleciexpress${BUILD_NUMBER}"
+				sh "docker run -d -p 8090:8080 circleciexpress"
 				echo 'ir a la URL http://localhost:8090'
             }
         }
