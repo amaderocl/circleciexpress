@@ -15,14 +15,7 @@ pipeline {
             steps {
                     echo 'Building.. Docker image'
 		            sh 'docker -v'
-					try {
-                            sh 'docker rmi -f circleciexpress'
-                        } 
-						catch (Exception e) 
-						{
-                             sh 'no existe la imagen'
-                        }
-				    sh 'docker build -t circleciexpress ./'
+				    sh "docker build -t circleciexpress${BUILD_NUMBER} ./"
 					sh 'docker images'
             }
         }
@@ -30,7 +23,7 @@ pipeline {
             steps {
 			    
                 echo 'Running'
-				sh 'docker run -d -p 8090:8080 circleciexpress'
+				sh "docker run -d -p 8090:8080 circleciexpress${BUILD_NUMBER}"
 				echo 'ir a la URL http://localhost:8090'
             }
         }
