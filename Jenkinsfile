@@ -13,11 +13,13 @@ pipeline {
         }
         stage('build') {
             steps {
-                    echo 'Building..Docker image'
+                    echo 'Building.. Docker image'
 		            sh 'docker -v'
 					try {
                             sh 'docker rmi -f circleciexpress'
-                        } catch (Exception e) {
+                        } 
+						catch (Exception e) 
+						{
                              sh 'no existe la imagen'
                         }
 				    sh 'docker build -t circleciexpress ./'
