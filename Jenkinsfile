@@ -1,21 +1,29 @@
 pipeline {
-    agent any
-
+   agent any
     stages {
-        stage('Build') {
+        stage('test') {
+		    agent {
+                docker { image 'node:current-alpine3.12' }
+             }
             steps {
-                echo 'Building..'
-		sh 'docker -v'
+               sh 'npm install'
+			   sh 'npm start &'
+			   sh 'npm test'
             }
         }
-        stage('Test') {
+        stage('build') {
             steps {
-                echo 'Testing..'
+                    echo 'Building..'
+		            sh 'docker -v'
+				    sh 'docker build -t circleciexpress ./'
+					sh 'docker images'
             }
         }
-        stage('Deploy') {
+        stage('Run') {
             steps {
-                echo 'Deploying....'
+                echo 'Running'
+				sh 'docker run -d -p 8090:8080 circleciexpress'
+				echo 'ir a la URL http://localhost:8090'
             }
         }
     }
