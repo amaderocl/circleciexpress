@@ -15,7 +15,7 @@ pipeline {
             steps {
                     echo 'Building.. Docker image'
 		            sh 'docker -v'
-					sh "docker ps -a | awk \'{ print $1,$2 }\' | grep circleciexpress | awk \'{print $1 }\' | xargs -I {} docker rm {}"
+					sh "docker ps -a | awk \'{ print \$1,\$2 }\' | grep circleciexpress | awk \'{print \$1 }\' | xargs -I {} docker rm {}"
 					sh 'docker rmi -f circleciexpress'
 				    sh "docker build -t circleciexpress ./"
 					sh 'docker images'
