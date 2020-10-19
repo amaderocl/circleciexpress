@@ -13,7 +13,7 @@ pipeline {
         }
         stage('build') {
             steps {
-                    echo 'Building..'
+                    echo 'Building..Docker image'
 		            sh 'docker -v'
 				    sh 'docker build -t circleciexpress ./'
 					sh 'docker images'
