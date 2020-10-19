@@ -21,6 +21,7 @@ pipeline {
         }
         stage('Run') {
             steps {
+			    sh "docker ps -a | awk '{ print $1,$2 }' | grep circleciexpress | awk '{print $1 }' | xargs -I {} docker rm {}"
                 echo 'Running'
 				sh 'docker run -d -p 8090:8080 circleciexpress'
 				echo 'ir a la URL http://localhost:8090'
